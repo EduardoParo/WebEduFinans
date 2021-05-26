@@ -1,0 +1,65 @@
+<!--Section Titulo-->
+		
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-md-12 mb-5 border-bottom ">
+						<h1 class="display-4 text-center text-white">Despesas</h1>			
+							
+					</div>
+					
+				</div>
+			</div>
+		
+		<!--Section Botões Registrar e Pesquisar-->
+		
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-md-6">
+						<button type="button" id="btnRegistrar" class="btn btn-success">
+             				 <i class="fas fa-plus"></i>
+          			  	</button>
+					</div>
+					
+					<div class="col-md-6">
+						<div class="input-group input-group-sm ">
+                			
+                			<input type="text" id="pesquisar"placeholder="Pesquisar" class="form-control">
+                			<div class="input-group-addon p-1 ">
+                				<button id="btnPesquisar" type="button" class="btn btn-primary">
+             						 <i class="fas fa-search"></i>
+           						</button>
+                			</div>
+                		</div>
+						
+					</div>
+				</div>
+			</div>
+		
+
+   
+        <!--Section Tabela de Dados-->
+        
+            <div class="container bg-white mt-4">
+                <div class="row">
+                   
+                        <div class="table-responsive  " >
+                            <table id= "tabelaDados" class="table table-bordered" >
+                                
+                            </table>
+                        </div>
+                              
+                </div>
+            </div>
+        
+
+        <?php
+        //Extremamente importante
+            echo $this->oView->aDados;
+            require_once "app/view/app/cadastroDespesa.phtml";
+        
+        ?>
+          
+
+      

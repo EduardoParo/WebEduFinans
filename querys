@@ -1,0 +1,27 @@
+create table sys_usr(
+    usr_id int not null primary key AUTO_INCREMENT,
+    usr_nome varchar(100) not null,
+    usr_email varchar(150) not null,
+	usr_senha varchar(32) not null
+);
+
+create table despesa(
+    des_id 			int not null PRIMARY KEY AUTO_INCREMENT,
+    des_id_usr			int not null,
+    des_data 		date not null,
+    des_km 			int not null,
+	des_titulo 		char(250),
+	des_produto 	char(250),
+	des_marca   	char(250),
+	des_vl_uni   	DOUBLE,
+	des_quantidade 	int,
+	des_vl_total	DOUBLE,
+	des_obs 		char(255),
+	
+	data datetime default current_timestamp
+);
+	
+INSERT INTO despesas 
+    (des_data, des_km, des_qtd, des_produto, des_marca, des_vl_uni, des_vl_total) 
+ VALUES 
+ ('01-01-1977',30.000,2,'teste','teste',2.2,2.2 ) 

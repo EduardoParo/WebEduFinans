@@ -1,0 +1,46 @@
+
+
+    <!--Secao-->
+    <section>
+        <div class="container">
+            <div class="row" >
+                <div class="col-sm-12"style="margin-top:5%;">
+                    <div class="card" >
+                        <form method="post" role="form" action="/WebEdufinans/autenticar" >
+                           <div class="form-group">
+                               <div class="text-center">
+                                    <h1> Login </h1>
+                               </div>
+                               <p class="text-center ">Bem vindo. Por favor realize o login com sua conta</p>
+
+                               <div class="form-group">
+                                    <input type="email" name='email' class="form-control mt-5" placeholder="Email">
+                                    <input type="password" name='senha' class="form-control  mt-2" placeholder="Senha">
+                               </div>
+
+                               <button class="btn btn-success btn-block btn-lg mb-2" type="submit">
+                                    <span>Entrar</span>
+                               </button>
+
+                               
+                               <?php if($this->oView->login == 'erro'){ ?>
+			                    	<span class="text text-center text-danger mb-2"> E-mail ou senha Inválido (s) </span>
+			                    
+                                <?php } ?>
+                               <p>
+                                    <a href="/WebEdufinans/cadastrar">Criar uma conta</a> <br> 
+                                    <a href="#">Esqueci a senha</a>
+                               </p>
+                           </div>
+                        </form>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+
+    </section>
+
+
+
+

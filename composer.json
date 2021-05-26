@@ -1,0 +1,18 @@
+{
+    "name": "Despesas",
+        "require":{
+            "php": ">=7.0"
+        },
+        "authors": [
+            {
+                "name": "Eduardo Paro de Simoni",
+                "email": "eduardo.system96@gmail.com"
+            }
+        ],
+        "autoload": {
+            "psr-4":{
+                "app\\": "app/",
+                "mf\\": "vendor/mf/"
+            }
+        }
+}

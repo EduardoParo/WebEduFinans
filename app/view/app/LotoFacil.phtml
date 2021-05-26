@@ -1,0 +1,397 @@
+<html>
+  <!--Head
+  --------------------------------------->
+  <head>
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <title>Loto Facíl</title>
+
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+      <!-- Bootstrap Jquery -->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+      <!-- Bootstrap Ajax -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+      <!-- Bootstrap JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+     
+     <!--Codigo JS-->
+     <script>
+      /*--------------------------------------------------------------
+       Função Principal jogar
+       ---------------------------------------------------------------*/
+        function Jogar(){
+          let aNsorteados = Array();
+          let nSorteado
+
+          $('#resultado').css('display','block');
+          $('#jogo1').css('display','block');
+          $('#jogo2').css('display','block');
+          $('#jogo3').css('display','block');
+          $('#reiniciar').css('display','block');
+ 
+          
+          //Armazenar os Numeros não sorteados
+          for (var nY = 0; nY < 3; nY++) {
+            cNy = parseInt(nY);
+            cTextId = 'n'+cNy;
+            aNsorteados[nY] = $('#'+cTextId).val();        
+          }
+          
+          //Armazenar numero Sorteado
+          nSorteado = $('#nSorteado').val(); 
+
+          let oJogo = new Jogo(aNsorteados,nSorteado);
+
+          aJogo1 = oJogo.aJogo1;
+          aJogo2 = oJogo.aJogo2;
+          aJogo3 = oJogo.aJogo3;
+          
+          //Apresentar na tabela os dados do jogo1
+          for (let nY = 0; nY < 15; nY++) {
+            cNy = parseInt(nY);
+            cTextId = 'nTb1R'+cNy;
+            $('#'+cTextId).val(aJogo1[nY]);
+            //document.getElementById(cTextId).value= aResul[nY];
+          }
+
+          //Apresentar na tabela os dados do jogo1
+          for (let nY = 0; nY < 15; nY++) {
+            cNy = parseInt(nY);
+            cTextId = 'nTb2R'+cNy;
+            $('#'+cTextId).val(aJogo2[nY]);
+            //document.getElementById(cTextId).value= aResul[nY];
+                 
+          }
+
+          //Apresentar na tabela os dados do jogo1
+          for (let nY = 0; nY < 15; nY++) {
+            cNy = parseInt(nY);
+            cTextId = 'nTb3R'+cNy;
+            $('#'+cTextId).val(aJogo3[nY]);
+            //document.getElementById(cTextId).value= aResul[nY];
+                 
+          }
+        }
+
+       /*--------------------------------------------------------------
+       Definição da classe Obj jogar
+       ---------------------------------------------------------------*/
+        class Jogo{
+          constructor(aNsorteados, nSorteado){
+            this.aNsorteados  = aNsorteados;
+            this.nSorteado    = nSorteado;
+            this.aNumJogo     = Array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25);
+
+            this.aNumRemo       = this.removNsorteado();
+            this.aJogo1  = this.montagemJogo1();
+            this.aJogo2  = this.montagemJogo2();
+            this.aJogo3  = this.montagemJogo3();
+
+            
+          }
+
+          /*--------------------------------------------------------------
+          Remover numeros não sorteados
+          ---------------------------------------------------------------*/
+          removNsorteado(){
+            let nX = 0; 
+            while(nX < this.aNumJogo.length){
+              
+              if (  this.aNsorteados[0] == this.aNumJogo[nX] ) {
+                this.aNumJogo.splice(nX, 1); 
+
+              } else if (this.aNsorteados[1] == this.aNumJogo[nX]) {
+                this.aNumJogo.splice(nX, 1); 
+
+              } else if (this.aNsorteados[2] == this.aNumJogo[nX]) {
+                this.aNumJogo.splice(nX, 1); 
+
+              } 
+                  
+              nX++;
+            }
+			nX = 0;
+			while(nX < this.aNumJogo.length){
+			
+			 if (this.nSorteado == this.aNumJogo[nX]) {
+                this.aNumJogo.splice(nX, 1); 
+              }
+			  nX++;
+			}
+            return this.aNumJogo;
+    
+          }
+
+          /*--------------------------------------------------------------
+          Montagem do jogo 1
+          ---------------------------------------------------------------*/
+          montagemJogo1(){
+            let aJogo1  = Array();
+            let nX      = 0;
+            let nAux    = 0;
+            let nCont   = 0;
+
+            while(nX < 25){
+              
+              if(nCont == 2){
+                aJogo1[nAux] =    this.aNumRemo[nX+1];
+                nCont = 1;
+                nAux++;
+                nX=nX+2;
+              }
+          
+              aJogo1[nAux] = this.aNumRemo[nX];
+              
+              nAux++;
+              nX++;
+              nCont++;
+            }
+            aJogo1[14] = this.nSorteado;
+            return aJogo1;
+          }
+
+          /*--------------------------------------------------------------
+          Montagem do jogo 2
+          ---------------------------------------------------------------*/
+          montagemJogo2(){
+            let aJogo2  = Array();
+            let nX      = 0;
+            let nAux    = 1;
+            let nCont   = 1;
+
+            while(nX < 25){
+              
+              if(nCont == 2 ){
+                aJogo2[nAux] =    this.aNumRemo[nX+1];
+                nCont = 1;
+                nAux++;
+                nX=nX+2;
+              }
+          
+              aJogo2[nAux] = this.aNumRemo[nX];
+              
+              nAux++;
+              nX++;
+              nCont++;
+            }
+            aJogo2.shift();
+            aJogo2[14] = this.nSorteado;
+            return aJogo2;
+          }
+
+          /*--------------------------------------------------------------
+          Montagem do jogo 2
+          ---------------------------------------------------------------*/
+          montagemJogo3(){
+            let aJogo3  = Array();
+            let nX      = 0;
+            let nAux    = 2;
+            let nCont   = 2;
+
+            while(nX < 25){
+              
+              if(nCont == 2 ){
+                aJogo3[nAux] =    this.aNumRemo[nX+1];
+                nCont = 1;
+                nAux++;
+                nX=nX+2;
+              }
+          
+              aJogo3[nAux] = this.aNumRemo[nX];
+              
+              nAux++;
+              nX++;
+              nCont++;
+            }
+            aJogo3.shift();
+            aJogo3.shift();
+            aJogo3[14] = this.nSorteado;
+            return aJogo3;
+          }
+          
+      }
+      
+      </script>
+  </head>
+  
+  <!--Body
+  ---------------------------------->
+  <body class="bg-dark">
+    <header>
+      <!-- Container-->
+      <div class="container">
+        <!-- Titulo -->   
+        <div class="row bg-success">
+          <div class="col-sm-12 mt-2">
+            <h1 class="text-center text-light"> Lotofacíl</h1>
+          </div>
+        </div>
+      </div>
+    </header>
+
+      <section>
+        <!-- Container-->
+        <div class="container bg-white mt-2">
+        
+          <div class="row">
+            <div class="col-sm-6 mt-3">
+         
+              <!-- Tabela 1 -->
+              <table class="table table-responsive table-striped" >
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col" colspan="3">Números que não serão sorteados</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><input type='number' id='n0' value='1' min=1 max=25  style="width: 2.5em;"></td>
+                      <td><input type='number' id='n1' value='2' min=1 max=25 style="width: 2.5em;"></td>
+                      <td><input type='number' id='n2' value='3' min=1 max=25 style="width: 2.5em;"></td>   
+                    </tr>       
+                  </tbody>
+              </table>
+            </div>
+
+            <div class="col-sm-6 mt-3">
+         
+              <!-- Tabela 1 -->
+              <table class="table table-responsive table-striped" >
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Número que será sorteado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><input type='number' id='nSorteado' value='4' min=1 max=25 style="width: 100%;"></td>
+                    </tr>       
+                  </tbody>
+              </table>
+            </div>
+          </div>
+
+        <!-- Botao jogar -->
+        <div class="row">
+          <div class="col-sm-12 ">
+            <button type="button" class="btn btn-success col-sm-12 mb-2" onclick="Jogar()">Jogar</button>
+          </div>
+        </div>
+        <hr>
+        <!--Resultado-->
+        <div id='resultado' class="row" style="display: none;">
+          <div class="col-sm-12 centered">
+            <h3 class="text-center"> Resultado  </h3>
+          </div>
+          <hr>
+        </div>
+        
+        <table id='jogo1' class="table table-sm table-responsive " style="display: none;">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col" colspan="16" class="text-center"><h4>Jogo 1<h4></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type='number' id='nTb1R0'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb1R1'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb1R2'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb1R3'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb1R4'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb1R5'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb1R6'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb1R7'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb1R8'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb1R9'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb1R10' disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb1R11' disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb1R12' disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb1R13' disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb1R14' disabled="disabled" style="width: 2.5em;"></td>
+              
+             
+            
+            </tr>       
+          </tbody>
+        </table>      
+
+        <table id='jogo2' class="table table-sm table-responsive " style="display: none;">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col" colspan="16" class="text-center "><h4>Jogo 2<h4></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type='number' id='nTb2R0'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb2R1'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb2R2'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb2R3'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb2R4'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb2R5'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb2R6'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb2R7'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb2R8'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb2R9'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb2R10' disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb2R11' disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb2R12' disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb2R13' disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb2R14' disabled="disabled" style="width: 2.5em;"></td>
+             
+             
+            
+            </tr>       
+          </tbody>
+        </table>   
+        
+        <table id='jogo3' class="table table-sm table-responsive " style="display: none;">
+          <thead class="thead-dark" >
+            <tr>
+              <th scope="col" colspan="15" class="text-center "><h4>Jogo 3<h4></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type='number' id='nTb3R0'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb3R1'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb3R2'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb3R3'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb3R4'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb3R5'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb3R6'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb3R7'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb3R8'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb3R9'  disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb3R10' disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb3R11' disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb3R12' disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb3R13' disabled="disabled" style="width: 2.5em;"></td>
+              <td><input type='number' id='nTb3R14' disabled="disabled" style="width: 2.5em;"></td>
+              
+            
+            </tr>       
+          </tbody>
+        </table>  
+        
+         <!-- Botao jogar -->
+    <div  id='reiniciar' class="row " style="display: none;">
+      <div class="col-sm-12 centered">
+        <button type="button" class="btn btn-danger mb-2 col-sm-12 centered " onclick="location.reload()">Reiniciar</button>
+      </div>
+    </div>
+      </div>
+    </section>
+
+   
+
+    
+
+  </body>
+</html>
