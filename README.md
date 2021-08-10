@@ -1,5 +1,5 @@
 # WebEduFinans
-[![NPM](https://img.shields.io/npm/l/react)](https://github.com/devsuperior/sds1-wmazoni/blob/master/LICENSE) 
+[![NPM](https://github.com/EduardoParo/WebEduFinans/blob/main/LICENSE)
 
 # Sobre o projeto
 
